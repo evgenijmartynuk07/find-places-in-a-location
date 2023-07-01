@@ -1,12 +1,11 @@
-import asyncio
 import time
 from datetime import datetime
-
+import asyncio
 import aiohttp
 import csv
 from dataclasses import dataclass, astuple
 
-api_key_google = "your_api_google_key"
+api_key_google = "AIzaSyBrvmds7KEvwHstTeQ_Jyhn4nhvA0GAOL4"
 
 
 @dataclass
@@ -42,10 +41,10 @@ class PlaceGenerator:
                 location = f"{country}: {place}"
                 correct_location = input(f"Is {location} the correct location? (Y/N):")
 
-            if correct_location in ("Y", "y") and country != place:
-                return place
-        print("Invalid location. Please enter a valid location.")
-        return self._validate_location()
+                if correct_location in ("Y", "y") and country != place:
+                    return place
+            print("Invalid location. Please enter a valid location.")
+            return await self._validate_location()
 
     def _validate_place(self):
         keyword = input("Find by keyword (cafe, restaurant or ect): ")
@@ -77,7 +76,7 @@ class PlaceGenerator:
                 return Place(name=name, address=address, phone_number=phone_number, website=website, rating=rating)
 
     async def add_information_to_files(self, places):
-        with open(f"{datetime.now()} - Place: {self.location} with keyword: {self.keyword}.csv", "w") as quotes:
+        with open(f"{datetime.now().strftime('%Y-%m-%d | %H:%M')} | Place: {self.location}. Keyword: {self.keyword}.csv", "w") as quotes:
             fields = ("name", "address", "phone_number", "website", "rating")
             writer = csv.writer(quotes)
             writer.writerow(fields)
