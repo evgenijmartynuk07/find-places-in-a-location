@@ -5,7 +5,7 @@ import aiohttp
 import csv
 from dataclasses import dataclass, astuple
 
-api_key_google = "AIzaSyBrvmds7KEvwHstTeQ_Jyhn4nhvA0GAOL4"
+api_key_google = "your_google_api_key"
 
 
 @dataclass
